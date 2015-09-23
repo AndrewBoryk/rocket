@@ -15,6 +15,9 @@
 		451E02A21BADC72C0049A9C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451E02A01BADC72C0049A9C4 /* LaunchScreen.storyboard */; };
 		451E02AD1BADC72C0049A9C4 /* SpaceXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 451E02AC1BADC72C0049A9C4 /* SpaceXTests.m */; };
 		451E02B81BADC72C0049A9C4 /* SpaceXUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 451E02B71BADC72C0049A9C4 /* SpaceXUITests.m */; };
+		451E030A1BAFB4960049A9C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451E03091BAFB4960049A9C4 /* QuartzCore.framework */; };
+		451E030D1BB056B00049A9C4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451E030C1BB056B00049A9C4 /* MenuViewController.m */; settings = {ASSET_TAGS = (); }; };
+		451E03131BB120980049A9C4 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451E03121BB120980049A9C4 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,10 @@
 		451E02B31BADC72C0049A9C4 /* SpaceXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		451E02B71BADC72C0049A9C4 /* SpaceXUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpaceXUITests.m; sourceTree = "<group>"; };
 		451E02B91BADC72C0049A9C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		451E03091BAFB4960049A9C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		451E030B1BB056B00049A9C4 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		451E030C1BB056B00049A9C4 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		451E03121BB120980049A9C4 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451E03131BB120980049A9C4 /* GameKit.framework in Frameworks */,
+				451E030A1BAFB4960049A9C4 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +90,8 @@
 		451E02861BADC72C0049A9C4 = {
 			isa = PBXGroup;
 			children = (
+				451E03121BB120980049A9C4 /* GameKit.framework */,
+				451E03091BAFB4960049A9C4 /* QuartzCore.framework */,
 				451E02911BADC72C0049A9C4 /* SpaceX */,
 				451E02AB1BADC72C0049A9C4 /* SpaceXTests */,
 				451E02B61BADC72C0049A9C4 /* SpaceXUITests */,
@@ -106,6 +117,8 @@
 				451E02981BADC72C0049A9C4 /* ViewController.h */,
 				451E02991BADC72C0049A9C4 /* ViewController.m */,
 				451E029B1BADC72C0049A9C4 /* Main.storyboard */,
+				451E030B1BB056B00049A9C4 /* MenuViewController.h */,
+				451E030C1BB056B00049A9C4 /* MenuViewController.m */,
 				451E029E1BADC72C0049A9C4 /* Assets.xcassets */,
 				451E02A01BADC72C0049A9C4 /* LaunchScreen.storyboard */,
 				451E02A31BADC72C0049A9C4 /* Info.plist */,
@@ -273,6 +286,7 @@
 				451E029A1BADC72C0049A9C4 /* ViewController.m in Sources */,
 				451E02971BADC72C0049A9C4 /* AppDelegate.m in Sources */,
 				451E02941BADC72C0049A9C4 /* main.m in Sources */,
+				451E030D1BB056B00049A9C4 /* MenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +358,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Boryk (YX982XZ834)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andrew Boryk (YX982XZ834)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -387,7 +402,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Boryk (YX982XZ834)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andrew Boryk (YX982XZ834)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -411,9 +427,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Boryk (YX982XZ834)";
 				INFOPLIST_FILE = SpaceX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.forword.SpaceX;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linute.rocketship;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -422,9 +439,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrew Boryk (YX982XZ834)";
 				INFOPLIST_FILE = SpaceX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.forword.SpaceX;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linute.rocketship;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -496,6 +514,7 @@
 				451E02BE1BADC72C0049A9C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		451E02BF1BADC72C0049A9C4 /* Build configuration list for PBXNativeTarget "SpaceXTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +523,7 @@
 				451E02C11BADC72C0049A9C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		451E02C21BADC72C0049A9C4 /* Build configuration list for PBXNativeTarget "SpaceXUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +532,7 @@
 				451E02C41BADC72C0049A9C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
