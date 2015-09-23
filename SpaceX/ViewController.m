@@ -35,7 +35,7 @@
     rocketView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spaceship0"]];
     rocketView.frame = image.frame;
     rocketView.contentMode = UIViewContentModeCenter;
-    rocketView.center = CGPointMake(self.view.center.x, -rocketView.frame.size.height);
+    rocketView.center = CGPointMake(self.view.center.x+50, -rocketView.frame.size.height);
     [self.view addSubview:rocketView];
     platformView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Platform"]];
     platformView.center = CGPointMake(self.view.center.x-75, self.view.frame.size.height - 75);
@@ -186,7 +186,6 @@
                 else {
                     offscreenView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spaceship0"]];
                 }
-                offscreenView = [[UIImageView alloc] initWithImage:rocketView.image];
                 CGRect frame = offscreenView.frame;
                 frame.size = CGSizeMake(40, 40);
                 offscreenView.frame = frame;
@@ -219,30 +218,61 @@
                     
                     if (touchLocation.x > self.view.center.x) {
                         float comparisonFloat = (touchLocation.x - (self.view.center.x))/(self.view.center.x);
+//                        float rotateValue;
+//                        
+//                        if (rotation == 0){
+//                            rotateValue = 0.211f;
+//                        }
+//                        else if (rotation > 0 && rotation < 10) {
+//                            rotateValue = 0.211f;
+//                        }
+//                        else if (rotation >= 10 && rotation < 90) {
+//                            rotateValue = 0.211f*1.05f;
+//                        }
+//                        else if (rotation >= 90 && rotation < 135) {
+//                            rotateValue = 0.211*1.11f;
+//                        }
+//                        else if (rotation >= 135 && rotation < 180) {
+//                            rotateValue = 0.211*1.05f;
+//                        }
+//                        else if (rotation >= 180 && rotation < 225) {
+//                            rotateValue = 0.211;
+//                        }
+//                        else if (rotation >= 225 && rotation < 270) {
+//                            rotateValue = 0.211*1.55f;
+//                        }
+//                        else if (rotation >= 270 && rotation < 335) {
+//                            rotateValue = 0.211*1.25;
+//                        }
+//                        else if (rotation >= 335 && rotation < 360) {
+//                            rotateValue = 0.211f;
+//                        }
+//                        
+//                        rotation = rotation + (rotateValue);
                         
-                        if (rotation >= 0 && rotation < 45) {
-                            rotation = rotation + comparisonFloat/1.5f;
-                        }
-                        else if (rotation >= 45 && rotation < 90) {
+                        if (rotation >= 0 && rotation < 25) {
                             rotation = rotation + comparisonFloat;
+                        }
+                        else if (rotation >= 25 && rotation < 90) {
+                            rotation = rotation + comparisonFloat*1.11f;
                         }
                         else if (rotation >= 90 && rotation < 135) {
-                            rotation = rotation + comparisonFloat*1.5f;
+                            rotation = rotation + comparisonFloat*1.25f;
                         }
                         else if (rotation >= 135 && rotation < 180) {
-                            rotation = rotation + comparisonFloat;
+                            rotation = rotation + comparisonFloat*1.11f;
                         }
                         else if (rotation >= 180 && rotation < 225) {
-                            rotation = rotation + comparisonFloat/1.5f;
+                            rotation = rotation + comparisonFloat;
                         }
                         else if (rotation >= 225 && rotation < 270) {
-                            rotation = rotation + comparisonFloat;
+                            rotation = rotation + comparisonFloat/1.11f;
                         }
-                        else if (rotation >= 270 && rotation < 315) {
-                            rotation = rotation + comparisonFloat*1.5f;
+                        else if (rotation >= 270 && rotation < 335) {
+                            rotation = rotation + comparisonFloat/1.25f;
                         }
-                        else if (rotation >= 315 && rotation < 360) {
-                            rotation = rotation + comparisonFloat;
+                        else if (rotation >= 335 && rotation < 360) {
+                            rotation = rotation + comparisonFloat/1.11f;
                         }
                         
                         
@@ -266,30 +296,61 @@
                     }
                     else if (touchLocation.x < self.view.center.x) {
                         float comparisonFloat = ((self.view.center.x)-touchLocation.x)/(self.view.center.x);
+//                        float rotateValue;
+//                        
+//                        if (rotation == 0){
+//                            rotateValue = 0.211f;
+//                        }
+//                        else if (rotation > 0 && rotation < 25) {
+//                            rotateValue = 0.211;
+//                        }
+//                        else if (rotation >= 25 && rotation < 90) {
+//                            rotateValue = 0.211*1.25f;
+//                        }
+//                        else if (rotation >= 90 && rotation < 135) {
+//                            rotateValue = 0.211f*1.55f;
+//                        }
+//                        else if (rotation >= 135 && rotation < 180) {
+//                            rotateValue = 0.211;
+//                        }
+//                        else if (rotation >= 180 && rotation < 225) {
+//                            rotateValue = 0.211*1.05f;
+//                        }
+//                        else if (rotation >= 225 && rotation < 270) {
+//                            rotateValue = 0.211*1.11f;
+//                        }
+//                        else if (rotation >= 270 && rotation < 350) {
+//                            rotateValue = 0.211*1.05f;
+//                        }
+//                        else if (rotation >= 350 && rotation < 360) {
+//                            rotateValue = 0.211f;
+//                        }
+//                        
+//                        rotation = rotation - (rotateValue);
                         
-                        if (rotation >= 0 && rotation < 45) {
-                            rotation = rotation - comparisonFloat;
+                        if (rotation >= 0 && rotation < 25) {
+                            rotation = rotation - comparisonFloat/1.11f;
                         }
-                        else if (rotation >= 45 && rotation < 90) {
-                            rotation = rotation - comparisonFloat*1.5f;
+                        else if (rotation >= 25 && rotation < 90) {
+                            rotation = rotation - comparisonFloat/1.25f;
                         }
                         else if (rotation >= 90 && rotation < 135) {
-                            rotation = rotation - comparisonFloat;
+                            rotation = rotation - comparisonFloat/1.11f;
                         }
                         else if (rotation >= 135 && rotation < 180) {
-                            rotation = rotation - comparisonFloat/1.5f;
+                            rotation = rotation - comparisonFloat;
                         }
                         else if (rotation >= 180 && rotation < 225) {
-                            rotation = rotation - comparisonFloat;
+                            rotation = rotation - comparisonFloat*1.11f;
                         }
                         else if (rotation >= 225 && rotation < 270) {
-                            rotation = rotation - comparisonFloat*1.5f;
+                            rotation = rotation - comparisonFloat*1.25f;
                         }
-                        else if (rotation >= 270 && rotation < 315) {
+                        else if (rotation >= 270 && rotation < 335) {
+                            rotation = rotation - comparisonFloat*1.11f;
+                        }
+                        else if (rotation >= 335 && rotation < 360) {
                             rotation = rotation - comparisonFloat;
-                        }
-                        else if (rotation >= 315 && rotation < 360) {
-                            rotation = rotation - comparisonFloat/1.5f;
                         }
                         
                         if (rotation < 0) {
@@ -333,10 +394,36 @@
                 }
             }
             else {
+                if (rotation == 0){
+                    rotation = 0;
+                }
+                else if (rotation > 0 && rotation < 180){
+                    float comparisonFloat = (rotation - 180.0f)/180.0f;
+                    if (rotation > 0 && rotation < 5) {
+                        
+                    }
+                    else {
+                        rotation = rotation + 0.211f * (1 + comparisonFloat);
+                    }
+                }
+                else if (rotation == 180){
+                    rotation = 180;
+                }
+                else if (rotation < 360 && rotation > 180) {
+                    float comparisonFloat = (180.0f - (rotation - 180.0f))/180.0f;
+                    if (rotation > 355 && rotation < 360) {
+                        
+                    }
+                    else {
+                        rotation = rotation - 0.211f * (1 + comparisonFloat);
+                    }
+                    
+                }
                 //            NSLog(@"Going down");
                 [self acceleration];
                 [self velocity];
                 [UIView animateWithDuration:0.01f animations:^{
+                    rocketView.transform = CGAffineTransformMakeRotation(DegreesToRadians(rotation));
                     rocketView.center = CGPointMake(rocketView.center.x + sidewaysAcceleration, rocketView.center.y+(fallingVelocity));
                 }];
             }
@@ -347,7 +434,7 @@
                 
                 rotation = 0;
                 rocketView.transform = CGAffineTransformMakeRotation(0);
-                rocketView.center = CGPointMake(self.view.center.x, -100);
+                rocketView.center = CGPointMake(self.view.center.x+50, -100);
                 
                 fallingVelocity = 0.0211f;
                 fallingVariable = 1;
@@ -369,7 +456,7 @@
         
     } else {
         totalPlays++;
-        if ((rotation < 1 || rotation > 359) && fallingVariable < 5) {
+        if ((rotation < 3 || rotation > 357) && fallingVariable < 5) {
 //            NSLog(@"Win");
             totalWins++;
             self.yAxisLabel.text = @"0.00";
@@ -386,7 +473,7 @@
         
         rotation = 0;
         rocketView.transform = CGAffineTransformMakeRotation(0);
-        rocketView.center = CGPointMake(self.view.center.x, -100);
+        rocketView.center = CGPointMake(self.view.center.x+50, -100);
         
         fallingVelocity = 0.0211f;
         fallingVariable = 1;
@@ -509,7 +596,7 @@
     int landingTemp = [[gameDefaults objectForKey:@"safeLandingScore"] intValue] + 1;
     [gameDefaults setObject:[NSNumber numberWithInt:landingTemp] forKey:@"safeLandingScore"];
     [gameDefaults synchronize];
-    if ([gameDefaults objectForKey:@"landingLeaderboard"]) {
+    if ([GKLocalPlayer localPlayer]) {
         [self reportWin];
     }
     [self scoreSetter];
@@ -520,7 +607,7 @@
     int landingTemp = [[gameDefaults objectForKey:@"failedLandingScore"] intValue] + 1;
     [gameDefaults setObject:[NSNumber numberWithInt:landingTemp] forKey:@"failedLandingScore"];
     [gameDefaults synchronize];
-    if ([gameDefaults objectForKey:@"failedLeaderboard"]) {
+    if ([GKLocalPlayer localPlayer]) {
         [self reportFail];
     }
     [self scoreSetter];

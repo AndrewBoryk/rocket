@@ -57,13 +57,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cJ-KL-hBB">
-                                <rect key="frame" x="20" y="21" width="39" height="50"/>
+                                <rect key="frame" x="4" y="20" width="63" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="QsY-gO-lEB"/>
                                     <constraint firstAttribute="height" constant="16" id="Z4B-3G-yuv"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="QsY-gO-lEB"/>
                                         <exclude reference="Z4B-3G-yuv"/>
                                     </mask>
                                 </variation>
@@ -90,11 +91,14 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="W4k-7R-Yxa" secondAttribute="bottom" id="J2z-8C-nyv"/>
                             <constraint firstItem="4SU-s0-fQ9" firstAttribute="top" secondItem="RVc-Rc-1Z8" secondAttribute="bottom" constant="8" id="Lfw-CD-FrP"/>
                             <constraint firstItem="W4k-7R-Yxa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="N0l-m3-G7e"/>
+                            <constraint firstItem="7cJ-KL-hBB" firstAttribute="trailing" secondItem="iOP-TQ-fUt" secondAttribute="trailing" constant="8" id="NJg-la-1mb"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="centerY" secondItem="iOP-TQ-fUt" secondAttribute="centerY" id="OzK-gF-xYD"/>
+                            <constraint firstItem="7cJ-KL-hBB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="SxD-iC-mJW"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="trailing" secondItem="iOP-TQ-fUt" secondAttribute="trailing" id="Th1-YT-dHH"/>
                             <constraint firstItem="iOP-TQ-fUt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="V9c-wW-SUJ"/>
                             <constraint firstItem="W4k-7R-Yxa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="VDK-Xu-ZVo"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="centerX" secondItem="iOP-TQ-fUt" secondAttribute="centerX" id="aOj-gN-FkR"/>
+                            <constraint firstItem="7cJ-KL-hBB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="4" id="agI-Ic-RpQ"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="centerY" secondItem="iOP-TQ-fUt" secondAttribute="centerY" id="ckh-hg-lwi"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="bottom" secondItem="iOP-TQ-fUt" secondAttribute="bottom" id="f84-Um-x26"/>
                             <constraint firstItem="RVc-Rc-1Z8" firstAttribute="leading" secondItem="c3V-3z-Fbb" secondAttribute="trailing" constant="4" id="fda-1g-JWb"/>
@@ -103,6 +107,7 @@
                             <constraint firstItem="D28-OP-3rG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="nsB-dp-JVw"/>
                             <constraint firstItem="D28-OP-3rG" firstAttribute="leading" secondItem="W4k-7R-Yxa" secondAttribute="trailing" constant="-56" id="tgd-2g-MDk"/>
                             <constraint firstItem="6z7-fJ-IVj" firstAttribute="bottom" secondItem="4SU-s0-fQ9" secondAttribute="bottom" id="uw2-4q-1II"/>
+                            <constraint firstItem="7cJ-KL-hBB" firstAttribute="bottom" secondItem="iOP-TQ-fUt" secondAttribute="bottom" constant="8" id="vHr-Yp-rus"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="leading" secondItem="iOP-TQ-fUt" secondAttribute="leading" id="yPr-JN-MCg"/>
                         </constraints>
                         <variation key="default">
@@ -111,9 +116,12 @@
                                 <exclude reference="2qL-3J-uUi"/>
                                 <exclude reference="4eB-ta-yfe"/>
                                 <exclude reference="Bqo-bz-kJI"/>
+                                <exclude reference="OzK-gF-xYD"/>
                                 <exclude reference="Th1-YT-dHH"/>
+                                <exclude reference="aOj-gN-FkR"/>
                                 <exclude reference="ckh-hg-lwi"/>
                                 <exclude reference="f84-Um-x26"/>
+                                <exclude reference="hSW-bt-wSX"/>
                                 <exclude reference="yPr-JN-MCg"/>
                                 <exclude reference="HUI-0Q-TDL"/>
                                 <exclude reference="HKX-wp-Qay"/>
