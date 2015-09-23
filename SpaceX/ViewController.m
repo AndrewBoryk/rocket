@@ -49,7 +49,7 @@
     for (int i = animationImageCount; i > 0; i--) {
         [closeThrusterImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"Spaceship%i", (i-1)]]];
     }
-    fuelAmmount = 4.0f;
+    fuelAmmount = 5.0f;
     self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
     platformView.alpha = 0;
     self.winLoseLabel.alpha = 0;
@@ -122,8 +122,8 @@
     CGRect rocketCollision = rocketView.frame;
     rocketCollision.size = CGSizeMake(rocketView.frame.size.width, rocketView.frame.size.height - (rocketView.frame.size.height * 0.22f));
     CGRect platformCollision = platformView.frame;
-    platformCollision.origin = CGPointMake(platformView.frame.origin.x+(platformView.frame.size.width * 0.1096f), platformView.frame.origin.y + (platformView.frame.size.height * 0.5151f));
-    platformCollision.size = CGSizeMake(platformView.frame.size.width * 0.4795f, platformView.frame.size.height * 0.1212f);
+    platformCollision.origin = CGPointMake(platformView.frame.origin.x+(platformView.frame.size.width * 0.1096f), platformView.frame.origin.y);
+    platformCollision.size = CGSizeMake(platformView.frame.size.width * 0.78f, platformView.frame.size.height * 0.25f);
     CGRect intersection = CGRectIntersection(platformCollision, rocketCollision);
     self.yAxisLabel.text = [NSString stringWithFormat:@"%.02f", -(((platformCollision.origin.y - (rocketView.frame.origin.y + rocketCollision.size.height))/platformCollision.origin.y) * 4.0f)];
     float xAxis;
@@ -328,10 +328,10 @@
 //                        
 //                        rotation = rotation - (rotateValue);
                         
-                        if (rotation >= 0 && rotation < 25) {
+                        if (rotation >= 0 && rotation < 45) {
                             rotation = rotation - comparisonFloat/1.11f;
                         }
-                        else if (rotation >= 25 && rotation < 90) {
+                        else if (rotation >= 45 && rotation < 90) {
                             rotation = rotation - comparisonFloat/1.25f;
                         }
                         else if (rotation >= 90 && rotation < 135) {
@@ -346,10 +346,10 @@
                         else if (rotation >= 225 && rotation < 270) {
                             rotation = rotation - comparisonFloat*1.25f;
                         }
-                        else if (rotation >= 270 && rotation < 335) {
+                        else if (rotation >= 270 && rotation < 315) {
                             rotation = rotation - comparisonFloat*1.11f;
                         }
-                        else if (rotation >= 335 && rotation < 360) {
+                        else if (rotation >= 315 && rotation < 360) {
                             rotation = rotation - comparisonFloat;
                         }
                         
@@ -399,7 +399,7 @@
                 }
                 else if (rotation > 0 && rotation < 180){
                     float comparisonFloat = (rotation - 180.0f)/180.0f;
-                    if (rotation > 0 && rotation < 5) {
+                    if (rotation > 0 && rotation < 45) {
                         
                     }
                     else {
@@ -411,7 +411,7 @@
                 }
                 else if (rotation < 360 && rotation > 180) {
                     float comparisonFloat = (180.0f - (rotation - 180.0f))/180.0f;
-                    if (rotation > 355 && rotation < 360) {
+                    if (rotation > 315 && rotation < 360) {
                         
                     }
                     else {
@@ -439,7 +439,7 @@
                 fallingVelocity = 0.0211f;
                 fallingVariable = 1;
                 sidewaysAcceleration = 0;
-                fuelAmmount = 4.0f;
+                fuelAmmount = 5.0f;
                 self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
                 rocketView.image = [UIImage imageNamed:@"Spaceship0"];
                 [rocketView sizeToFit];
@@ -456,15 +456,28 @@
         
     } else {
         totalPlays++;
-        if ((rotation < 3 || rotation > 357) && fallingVariable < 5) {
-//            NSLog(@"Win");
-            totalWins++;
-            self.yAxisLabel.text = @"0.00";
-            self.xAxisLabel.text = @"0.00";
-            [self addWin];
+        if (rocketCollision.origin.x + rocketCollision.size.width*0.24 >= platformCollision.origin.x && rocketCollision.origin.x+rocketCollision.size.width*0.76 <= platformCollision.origin.y + platformCollision.size.width && rocketCollision.origin.y < platformCollision.origin.y+1) {
+            if ((rotation < 10 || rotation > 350) && fallingVariable <= 20) {
+                //            NSLog(@"Win");
+                NSLog(@"Win velocity: %f", fallingVariable);
+                NSLog(@"Win rotation: %f", rotation);
+                totalWins++;
+                self.yAxisLabel.text = @"0.00";
+                self.xAxisLabel.text = @"0.00";
+                [self addWin];
+            }
+            else {
+                NSLog(@"Lose velocity: %f", fallingVariable);
+                NSLog(@"Lose rotation: %f", rotation);
+                self.yAxisLabel.text = @"0.00";
+                self.xAxisLabel.text = @"0.00";
+                [self addFail];
+            }
         }
         else {
-//            NSLog(@"Lose");
+            NSLog(@"Lose Range velocity: %f", fallingVariable);
+            NSLog(@"Lose Range rotation: %f", rotation);
+            //            NSLog(@"Lose");
             self.yAxisLabel.text = @"0.00";
             self.xAxisLabel.text = @"0.00";
             [self addFail];
@@ -478,7 +491,7 @@
         fallingVelocity = 0.0211f;
         fallingVariable = 1;
         sidewaysAcceleration = 0;
-        fuelAmmount = 4.0f;
+        fuelAmmount = 5.0f;
         self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
         
         rocketView.image = [UIImage imageNamed:@"Spaceship0"];
@@ -532,25 +545,25 @@
     }
 }
 -(void)velocity{
-    if (fallingVariable < 5) {
-        NSLog(@"Falling variable %f", fallingVariable);
+    if (fallingVariable < 10) {
+//        NSLog(@"Falling variable %f", fallingVariable);
     }
     
     if (userTouching && fuelAmmount > 0) {
         if (fmodf(rotation, 360) == 0) {
             if (fallingVariable > 5) {
-                fallingVariable-= 1.15f;
+                fallingVariable-= 1.25f;
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
-                fallingVariable = 5;
+                fallingVariable = 4;
                 fallingVelocity = fallingVariable*0.0211;
             }
             
         }
         else if (fmodf(rotation, 360) < 90 && fmodf(rotation, 360) > 0) {
             if (fallingVariable > 5) {
-                fallingVariable += -1.15*(fmodf(rotation, 360) / 90.0f);
+                fallingVariable += -1.25*(fmodf(rotation, 360) / 90.0f);
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
@@ -573,7 +586,7 @@
         }
         else if (fmodf(rotation, 360) > 270 && fmodf(rotation, 360) < 360) {
             if (fallingVariable > 5.0f) {
-                fallingVariable += -1.15*((fmodf(rotation, 360) - 270.0f) / 90.0f);
+                fallingVariable += -1.25*((fmodf(rotation, 360) - 270.0f) / 90.0f);
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
@@ -628,7 +641,7 @@
     
     [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+//            NSLog(@"%@", [error localizedDescription]);
         }
     }];
 }
@@ -639,7 +652,7 @@
     
     [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
         if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
+//            NSLog(@"%@", [error localizedDescription]);
         }
     }];
 }
@@ -651,11 +664,11 @@
 - (IBAction)scoreSwitchAction:(id)sender {
     if (allTime) {
         allTime = false;
-        NSLog(@"New");
+//        NSLog(@"New");
         self.winLoseLabel.text = [NSString stringWithFormat:@"%i/%i", totalWins, totalPlays];
     }
     else {
-        NSLog(@"Old");
+//        NSLog(@"Old");
         allTime = true;
         self.winLoseLabel.text = [NSString stringWithFormat:@"%i/%i", [[gameDefaults objectForKey:@"safeLandingScore"] intValue], [[gameDefaults objectForKey:@"failedLandingScore"] intValue]];
     }
