@@ -45,7 +45,7 @@
     
 //    updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
     
-     [self authenticateLocalPlayer];
+    [self authenticateLocalPlayer:NO];
     // Do any additional setup after loading the view.
 }
 
@@ -94,12 +94,12 @@
 }
 
 - (IBAction)leaderboardAction:(id)sender {
-    if ([menuDefaults objectForKey:@"landingLeaderboard"]) {
+    if ([GKLocalPlayer localPlayer]) {
         [self showLeaderboardAndAchievements:YES];
     }
     else {
         self.leaderboardButton.enabled = NO;
-        [self authenticateLocalPlayer];
+        [self authenticateLocalPlayer: YES];
     }
 }
 
@@ -111,12 +111,15 @@
     //ACCELERATION
 }
 
--(void)authenticateLocalPlayer {
+-(void)authenticateLocalPlayer: (BOOL)launchLogin{
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
         if (viewController != nil) {
-            [self presentViewController:viewController animated:YES completion:nil];
+            if (launchLogin) {
+                [self presentViewController:viewController animated:YES completion:nil];
+            }
+            self.leaderboardButton.enabled = YES;
         }
         else{
             if ([GKLocalPlayer localPlayer].authenticated) {
