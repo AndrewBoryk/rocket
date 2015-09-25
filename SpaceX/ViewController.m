@@ -31,14 +31,36 @@
     fallingVelocity = 0.0211f;
     fallingVariable = 1;
     allTime = false;
+    inARow = 0;
+    self.instructionView.alpha = 0;
+    self.shareRocket.hidden = YES;
+    self.shareLinuteLabel.hidden = YES;
+    explosionImages = [[NSArray alloc] initWithObjects:[UIImage imageNamed:@"Explosion1"], [UIImage imageNamed:@"Explosion2"],[UIImage imageNamed:@"Explosion3"],[UIImage imageNamed:@"Explosion4"],[UIImage imageNamed:@"Explosion5"],[UIImage imageNamed:@"Explosion6"],[UIImage imageNamed:@"Explosion7"], nil];
+    self.replayButton.alpha = 0;
+    self.firstTimeLabel.alpha = 0;
+    self.successTitleLabel.alpha = 0;
+    self.highScoreLabel.alpha = 0;
+    self.successCounter.alpha = 0;
+    self.xLabel.alpha = 0;
+    self.yLabel.alpha = 0;
+    
+    
+    self.socialOffset.constant = -75;
+    self.leaderboardOffset.constant = -75;
+    
+    bolded = [UIFont fontWithName:@"ADAM.CG PRO" size:100];
+    normal = [UIFont fontWithName:@"ADAM.CG PRO" size:45];
+    
+    self.successCounter.font = normal;
     UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spaceship4"]];
     rocketView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Spaceship0"]];
     rocketView.frame = image.frame;
     rocketView.contentMode = UIViewContentModeCenter;
     rocketView.center = CGPointMake(self.view.center.x+50, -rocketView.frame.size.height);
+    platformOffset = 50;
     [self.view addSubview:rocketView];
     platformView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Platform"]];
-    platformView.center = CGPointMake(self.view.center.x-75, self.view.frame.size.height - 75);
+    platformView.center = CGPointMake(self.view.center.x-75, self.view.frame.size.height - 100);
     [self.view addSubview:platformView];
     openThrusterImages = [[NSMutableArray alloc] init];
     closeThrusterImages = [[NSMutableArray alloc] init];
@@ -70,20 +92,35 @@
     else if ([[gameDefaults objectForKey:@"safeLandingScore"] intValue] == 0){
         [self reportWin];
     }
+    
+    self.bannerAd.adUnitID = @"ca-app-pub-9793545057577851/7451045123";
+    self.bannerAd.rootViewController = self;
+    [self.bannerAd loadRequest:[GADRequest request]];
+    [self.bannerAd setAlpha:0];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [UIView animateWithDuration:0.5f animations:^{
-        platformView.alpha = 1;
-        self.winLoseLabel.alpha = 1;
-        self.fuelLabel.alpha = 1;
-        self.yAxisLabel.alpha = 1;
-        self.xAxisLabel.alpha = 1;
-    } completion:^(BOOL finished) {
-        updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
-    }];
+    if ([gameDefaults boolForKey:@"scoreboardShown"]) {
+        [UIView animateWithDuration:0.5f animations:^{
+            platformView.alpha = 1;
+            self.winLoseLabel.alpha = 1;
+            self.fuelLabel.alpha = 1;
+            self.yAxisLabel.alpha = 1;
+            self.xAxisLabel.alpha = 1;
+            self.xLabel.alpha = 1;
+            self.yLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+            updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+        }];
+    }
+    else {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.instructionView.alpha = 1;
+        }];
+    }
+    
     
 }
 
@@ -100,7 +137,6 @@
     rocketView.animationDuration = 0.25f;
     rocketView.animationRepeatCount = 0;
     [rocketView startAnimating];
-    
     
 
 }
@@ -126,6 +162,7 @@
     platformCollision.size = CGSizeMake(platformView.frame.size.width * 0.78f, platformView.frame.size.height * 0.25f);
     CGRect intersection = CGRectIntersection(platformCollision, rocketCollision);
     self.yAxisLabel.text = [NSString stringWithFormat:@"%.02f", -(((platformCollision.origin.y - (rocketView.frame.origin.y + rocketCollision.size.height))/platformCollision.origin.y) * 4.0f)];
+    
     float xAxis;
     if (fmodf(rotation, 360) > 0 && fmodf(rotation, 360) < 180) {
         xAxis = ((fmodf(fmodf(rotation, 360), 180)/180.0f));
@@ -136,10 +173,14 @@
     else if (fmodf(rotation, 360) > 180 && fmodf(rotation, 360) < 360) {
         xAxis = -(((180.0f - fmodf(fmodf(rotation, 360), 180))/180.0f));
     }
+    else {
+        xAxis = 0.0f;
+    }
     self.xAxisLabel.text = [NSString stringWithFormat:@"%.02f", xAxis];
     if(CGRectIsNull(intersection)) {
         if([offscreenView isDescendantOfView:self.view]) {
             [offscreenView removeFromSuperview];
+            [offscreenView stopAnimating];
         }
         if ((rocketView.frame.origin.y + rocketView.frame.size.height) < 0) {
 //            offscreenView = [[UIImageView alloc] initWithImage:rocketView.image];
@@ -430,34 +471,46 @@
             // check if label is contained in self.view
             
             if ((rocketCollision.origin.y + rocketCollision.size.height) > platformCollision.origin.y) {
-                [updateRocketTimer invalidate];
-                
-                rotation = 0;
-                rocketView.transform = CGAffineTransformMakeRotation(0);
-                rocketView.center = CGPointMake(self.view.center.x+50, -100);
-                
-                fallingVelocity = 0.0211f;
-                fallingVariable = 1;
-                sidewaysAcceleration = 0;
-                fuelAmmount = 5.0f;
-                self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
-                rocketView.image = [UIImage imageNamed:@"Spaceship0"];
-                [rocketView sizeToFit];
-                self.view.userInteractionEnabled = YES;
-                
-                updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
 //                NSLog(@"Lose");
+                [updateRocketTimer invalidate];
+                rocketView.transform = CGAffineTransformMakeRotation(0);
+                
+                explosionView = [[UIImageView alloc] initWithFrame:rocketView.frame];
+                CGRect eFrame = explosionView.frame;
+                eFrame.origin = CGPointMake(eFrame.origin.x-eFrame.size.width, eFrame.origin.y-(eFrame.size.height * 0.22f));
+                explosionView.frame = eFrame;
+                
+                offscreenView.transform = CGAffineTransformMakeRotation(0);
+                offscreenView.image = [UIImage imageNamed:@"Explosion1"];
+                [offscreenView stopAnimating];
+                offscreenView.animationImages = explosionImages;
+                offscreenView.animationDuration = 0.5f;
+                offscreenView.animationRepeatCount = 1;
+                [offscreenView startAnimating];
+                
+                explosionView.frame = eFrame;
+                rocketView.alpha = 0;
+                explosionView.image = [UIImage imageNamed:@"Explosion1"];
+                [explosionView sizeToFit];
+                [self.view addSubview:explosionView];
+                
+                [explosionView stopAnimating];
+                explosionView.animationImages = explosionImages;
+                explosionView.animationDuration = 0.5f;
+                explosionView.animationRepeatCount = 1;
+                [explosionView startAnimating];
                 totalPlays++;
                 self.yAxisLabel.text = @"0.00";
                 self.xAxisLabel.text = @"0.00";
                 [self addFail];
+                [NSTimer scheduledTimerWithTimeInterval:0.45f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
             }
         }
         
     } else {
         totalPlays++;
-        if (rocketCollision.origin.x + rocketCollision.size.width*0.24 >= platformCollision.origin.x && rocketCollision.origin.x+rocketCollision.size.width*0.76 <= platformCollision.origin.y + platformCollision.size.width && rocketCollision.origin.y < platformCollision.origin.y+1) {
-            if ((rotation < 10 || rotation > 350) && fallingVariable <= 20) {
+        if (rocketCollision.origin.x + rocketCollision.size.width*0.24 >= platformCollision.origin.x && rocketCollision.origin.x+rocketCollision.size.width*0.66 <= platformCollision.origin.x + platformCollision.size.width && rocketCollision.origin.y < platformCollision.origin.y+1) {
+            if ((rotation < 10 || rotation > 350) && fallingVariable <= 40) {
                 //            NSLog(@"Win");
                 NSLog(@"Win velocity: %f", fallingVariable);
                 NSLog(@"Win rotation: %f", rotation);
@@ -465,43 +518,243 @@
                 self.yAxisLabel.text = @"0.00";
                 self.xAxisLabel.text = @"0.00";
                 [self addWin];
+                inARow++;
+                [updateRocketTimer invalidate];
+                if ([gameDefaults boolForKey:@"scoreboardShown"]) {
+                    [UIView animateWithDuration:0.5f animations:^{
+                        rocketView.transform = CGAffineTransformMakeRotation(DegreesToRadians(0));
+                    } completion:^(BOOL finished) {
+                        self.successCounter.text = [NSString stringWithFormat:@"%i", inARow];
+                        self.successCounter.alpha = 0.8f;
+                        [UIView animateWithDuration:0.25f animations:^{
+                            rocketView.alpha = 0;
+                        } completion:^(BOOL finished) {
+                            [UIView animateWithDuration:0.35f animations:^{
+                                platformOffset = (arc4random() % 150) - 75.0f;
+                                platformView.center = CGPointMake(self.view.center.x-platformOffset, self.view.frame.size.height - 100);
+                            } completion:^(BOOL finished) {
+                                [self finishGame];
+                            }];
+                            
+                        }];
+                        
+                        
+                    }];
+                    
+                }
+                else {
+                    [UIView animateWithDuration:0.5f animations:^{
+                        rocketView.transform = CGAffineTransformMakeRotation(DegreesToRadians(0));
+                    } completion:^(BOOL finished) {
+                        [UIView animateWithDuration:0.25f animations:^{
+                            platformView.alpha = 0;
+                            self.winLoseLabel.alpha = 0;
+                            self.xAxisLabel.alpha = 0;
+                            self.yAxisLabel.alpha = 0;
+                            self.xLabel.alpha = 0;
+                            self.yLabel.alpha = 0;
+                            self.fuelLabel.alpha = 0;
+                            rocketView.alpha = 0;
+                        } completion:^(BOOL finished) {
+                            [self.view layoutIfNeeded];
+                            self.waterBottomOffset.constant = -self.waterImageView.frame.size.height;
+                            [UIView animateWithDuration:0.5f animations:^{
+                                [self.view layoutIfNeeded];
+                            } completion:^(BOOL finished) {
+                                [gameDefaults setBool:true forKey:@"scoreboardShown"];
+                                [gameDefaults synchronize];
+                                [UIView animateWithDuration:0.5f animations:^{
+                                    self.bannerAd.alpha = 1;
+                                    self.firstTimeLabel.alpha = 1;
+                                    self.replayButton.alpha = 1;
+                                    self.successTitleLabel.alpha = 1;
+                                }];
+                            }];
+                        }];
+                        
+                        //
+                        
+                    }];
+                }
+                
             }
             else {
+                [updateRocketTimer invalidate];
                 NSLog(@"Lose velocity: %f", fallingVariable);
                 NSLog(@"Lose rotation: %f", rotation);
                 self.yAxisLabel.text = @"0.00";
                 self.xAxisLabel.text = @"0.00";
                 [self addFail];
+                rocketView.transform = CGAffineTransformMakeRotation(0);
+                explosionView = [[UIImageView alloc] initWithFrame:rocketView.frame];
+                CGRect eFrame = explosionView.frame;
+                eFrame.origin = CGPointMake(eFrame.origin.x-eFrame.size.width, eFrame.origin.y-(eFrame.size.height * 0.22f));
+                explosionView.frame = eFrame;
+                
+                offscreenView.transform = CGAffineTransformMakeRotation(0);
+                offscreenView.image = [UIImage imageNamed:@"Explosion1"];
+                [offscreenView stopAnimating];
+                offscreenView.animationImages = explosionImages;
+                offscreenView.animationDuration = 0.5f;
+                offscreenView.animationRepeatCount = 1;
+                [offscreenView startAnimating];
+                
+                rocketView.alpha = 0;
+                explosionView.transform = CGAffineTransformMakeRotation(0);
+                explosionView.image = [UIImage imageNamed:@"Explosion1"];
+                
+                [explosionView sizeToFit];
+                [self.view addSubview:explosionView];
+                
+                [explosionView stopAnimating];
+                explosionView.animationImages = explosionImages;
+                explosionView.animationDuration = 0.5f;
+                explosionView.animationRepeatCount = 1;
+                [explosionView startAnimating];
+                
+                [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
             }
         }
         else {
+            [updateRocketTimer invalidate];
             NSLog(@"Lose Range velocity: %f", fallingVariable);
             NSLog(@"Lose Range rotation: %f", rotation);
             //            NSLog(@"Lose");
             self.yAxisLabel.text = @"0.00";
             self.xAxisLabel.text = @"0.00";
             [self addFail];
+            rocketView.transform = CGAffineTransformMakeRotation(0);
+            explosionView = [[UIImageView alloc] initWithFrame:rocketView.frame];
+            CGRect eFrame = explosionView.frame;
+            eFrame.origin = CGPointMake(eFrame.origin.x-eFrame.size.width, eFrame.origin.y-(eFrame.size.height * 0.22f));
+            explosionView.frame = eFrame;
+            explosionView.transform = CGAffineTransformMakeRotation(0);
+            rocketView.alpha = 0;
+            
+            offscreenView.transform = CGAffineTransformMakeRotation(0);
+            offscreenView.image = [UIImage imageNamed:@"Explosion1"];
+            [offscreenView stopAnimating];
+            offscreenView.animationImages = explosionImages;
+            offscreenView.animationDuration = 0.5f;
+            offscreenView.animationRepeatCount = 1;
+            [offscreenView startAnimating];
+            
+            explosionView.image = [UIImage imageNamed:@"Explosion1"];
+            [explosionView sizeToFit];
+            [self.view addSubview:explosionView];
+            
+            [explosionView stopAnimating];
+            explosionView.animationImages = explosionImages;
+            explosionView.animationDuration = 0.5f;
+            explosionView.animationRepeatCount = 1;
+            [explosionView startAnimating];
+            [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
+            
         }
-        [updateRocketTimer invalidate];
         
-        rotation = 0;
-        rocketView.transform = CGAffineTransformMakeRotation(0);
-        rocketView.center = CGPointMake(self.view.center.x+50, -100);
-        
-        fallingVelocity = 0.0211f;
-        fallingVariable = 1;
-        sidewaysAcceleration = 0;
-        fuelAmmount = 5.0f;
-        self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
-        
-        rocketView.image = [UIImage imageNamed:@"Spaceship0"];
-        [rocketView sizeToFit];
-        self.view.userInteractionEnabled = YES;
-        
-        updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
         
         // Touching! Do something here
     }
+}
+
+-(void)endingOptions {
+    rocketView.alpha = 0;
+    [explosionView removeFromSuperview];
+    if (self.successCounter.alpha > 0) {
+        [self showScoreboard];
+    }
+    else {
+        [self finishGame];
+    }
+}
+-(void)showScoreboard {
+    [UIView animateWithDuration:0.5f animations:^{
+        self.bannerAd.alpha = 1;
+    }];
+    self.view.userInteractionEnabled = YES;
+    [updateRocketTimer invalidate];
+    [self.replayButton setTitle:@"RELAUNCH" forState:UIControlStateNormal];
+    self.replayButton.enabled = YES;
+    self.successTitleLabel.text = @"";
+    if ([gameDefaults objectForKey:@"HighScore"]){
+        if (inARow > [[gameDefaults objectForKey:@"HighScore"] intValue]) {
+            [gameDefaults setObject:[NSNumber numberWithInt:inARow] forKey:@"HighScore"];
+            [gameDefaults synchronize];
+            self.highScoreLabel.text = @"New Personal Best";
+        }
+        else {
+            self.highScoreLabel.text = [NSString stringWithFormat:@"Best Score: %i", [[gameDefaults objectForKey:@"HighScore"] intValue]];
+        }
+    }
+    else {
+        [gameDefaults setObject:[NSNumber numberWithInt:inARow] forKey:@"HighScore"];
+        [gameDefaults synchronize];
+        self.highScoreLabel.text = @"New Personal Best";
+    }
+    if ([GKLocalPlayer localPlayer]) {
+        [self reportHighScore];
+    }
+    [UIView animateWithDuration:0.25f animations:^{
+        platformView.alpha = 0;
+        self.winLoseLabel.alpha = 0;
+        self.xAxisLabel.alpha = 0;
+        self.yAxisLabel.alpha = 0;
+        self.xLabel.alpha = 0;
+        self.yLabel.alpha = 0;
+        self.fuelLabel.alpha = 0;
+        self.successCounter.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.successCounter.font = bolded;
+        [self.view layoutIfNeeded];
+        self.successNumberOffset.constant = self.view.frame.size.height/2.0f - 48.0f;
+        self.waterBottomOffset.constant = -self.waterImageView.frame.size.height;
+        [UIView animateWithDuration:0.5f animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [self.view layoutIfNeeded];
+            [gameDefaults setBool:true forKey:@"scoreboardShown"];
+            [gameDefaults synchronize];
+            self.socialOffset.constant = 16;
+            self.leaderboardOffset.constant = 16;
+            [UIView animateWithDuration:0.5f animations:^{
+                [self.view layoutIfNeeded];
+                rocketView.alpha = 0;
+                self.highScoreLabel.alpha = 1;
+                self.replayButton.alpha = 1;
+                self.successTitleLabel.alpha = 1;
+                self.successCounter.alpha = 1;
+            }];
+        }];
+    }];
+}
+
+-(void)finishGame {
+    [updateRocketTimer invalidate];
+    rotation = 0;
+    rocketView.transform = CGAffineTransformMakeRotation(0);
+    if (platformOffset < 0) {
+        rocketView.center = CGPointMake(self.view.center.x-50, -100);
+    }
+    else {
+        rocketView.center = CGPointMake(self.view.center.x+50, -100);
+    }
+    
+    
+    rocketView.alpha = 0;
+    fallingVelocity = 0.0211f;
+    fallingVariable = 1;
+    sidewaysAcceleration = 0;
+    fuelAmmount = 5.0f;
+    self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
+    
+    rocketView.alpha = 1.0f;
+    [rocketView sizeToFit];
+    self.view.userInteractionEnabled = YES;
+    
+    updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+    
+    
+    
 }
 
 
@@ -552,7 +805,7 @@
     if (userTouching && fuelAmmount > 0) {
         if (fmodf(rotation, 360) == 0) {
             if (fallingVariable > 5) {
-                fallingVariable-= 1.25f;
+                fallingVariable-= 1.31f;
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
@@ -563,7 +816,7 @@
         }
         else if (fmodf(rotation, 360) < 90 && fmodf(rotation, 360) > 0) {
             if (fallingVariable > 5) {
-                fallingVariable += -1.25*(fmodf(rotation, 360) / 90.0f);
+                fallingVariable += -1.31*(fmodf(rotation, 360) / 90.0f);
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
@@ -586,7 +839,7 @@
         }
         else if (fmodf(rotation, 360) > 270 && fmodf(rotation, 360) < 360) {
             if (fallingVariable > 5.0f) {
-                fallingVariable += -1.25*((fmodf(rotation, 360) - 270.0f) / 90.0f);
+                fallingVariable += -1.31*((fmodf(rotation, 360) - 270.0f) / 90.0f);
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
@@ -617,6 +870,21 @@
 }
 
 -(void)addFail {
+    if (totalPlays%10 == 9) {
+        self.bannerAd.adUnitID = @"ca-app-pub-9793545057577851/7451045123";
+        self.bannerAd.rootViewController = self;
+        [self.bannerAd loadRequest:[GADRequest request]];
+    }
+    else if (totalPlays%10 == 0) {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.bannerAd.alpha = 1;
+        }];
+    }
+    else if (totalPlays%10 >= 4) {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.bannerAd.alpha = 0;
+        }];
+    }
     int landingTemp = [[gameDefaults objectForKey:@"failedLandingScore"] intValue] + 1;
     [gameDefaults setObject:[NSNumber numberWithInt:landingTemp] forKey:@"failedLandingScore"];
     [gameDefaults synchronize];
@@ -657,6 +925,17 @@
     }];
 }
 
+-(void)reportHighScore {
+    GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:[gameDefaults objectForKey:@"highScoreLeaderboard"]];
+    score.value = [[gameDefaults objectForKey:@"HighScore"] intValue];
+    
+    [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
+        if (error != nil) {
+            //            NSLog(@"%@", [error localizedDescription]);
+        }
+    }];
+}
+
 -(BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -672,5 +951,225 @@
         allTime = true;
         self.winLoseLabel.text = [NSString stringWithFormat:@"%i/%i", [[gameDefaults objectForKey:@"safeLandingScore"] intValue], [[gameDefaults objectForKey:@"failedLandingScore"] intValue]];
     }
+}
+
+- (IBAction)replayAction:(id)sender {
+    [UIView animateWithDuration:0.5f animations:^{
+        self.bannerAd.alpha = 0;
+    }];
+    if (self.highScoreLabel.alpha > 0) {
+        [UIView animateWithDuration:0.25f animations:^{
+            self.successTitleLabel.alpha = 0;
+            self.replayButton.alpha = 0;
+            self.firstTimeLabel.alpha = 0;
+            self.highScoreLabel.alpha = 0;
+            self.successCounter.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self.view layoutIfNeeded];
+            self.waterBottomOffset.constant = 0;
+            self.successNumberOffset.constant = 16;
+            self.successCounter.font = normal;
+            self.successCounter.text = @"1";
+            self.socialOffset.constant = -75;
+            self.leaderboardOffset.constant = -75;
+            [UIView animateWithDuration:0.5f animations:^{
+                [self.view layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                rotation = 0;
+                rocketView.transform = CGAffineTransformMakeRotation(0);
+                
+                if (platformOffset < 0) {
+                    rocketView.center = CGPointMake(self.view.center.x-50, -100);
+                }
+                else {
+                    rocketView.center = CGPointMake(self.view.center.x+50, -100);
+                }
+                
+                inARow = 0;
+                
+                fallingVelocity = 0.0211f;
+                fallingVariable = 1;
+                sidewaysAcceleration = 0;
+                fuelAmmount = 5.0f;
+                self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
+                
+                rocketView.image = [UIImage imageNamed:@"Spaceship0"];
+                [rocketView sizeToFit];
+                
+                [UIView animateWithDuration:0.25f animations:^{
+                    platformView.alpha = 1;
+                    self.winLoseLabel.alpha = 1;
+                    self.xAxisLabel.alpha = 1;
+                    self.yAxisLabel.alpha = 1;
+                    self.xLabel.alpha = 1;
+                    self.yLabel.alpha = 1;
+                    self.fuelLabel.alpha = 1;
+                    rocketView.alpha = 1;
+                } completion:^(BOOL finished) {
+                    self.view.userInteractionEnabled = YES;
+                    updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+                }];
+            }];
+        }];
+
+    }
+    else {
+        [UIView animateWithDuration:0.25f animations:^{
+            self.successTitleLabel.alpha = 0;
+            self.replayButton.alpha = 0;
+            self.firstTimeLabel.alpha = 0;
+            self.successCounter.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self.view layoutIfNeeded];
+            self.waterBottomOffset.constant = 0;
+            self.successNumberOffset.constant = 16;
+            self.successCounter.font = normal;
+            self.successCounter.text = @"1";
+            
+            [UIView animateWithDuration:0.5f animations:^{
+                [self.view layoutIfNeeded];
+            } completion:^(BOOL finished) {
+                rotation = 0;
+                rocketView.transform = CGAffineTransformMakeRotation(0);
+                if (platformOffset < 0) {
+                    rocketView.center = CGPointMake(self.view.center.x-50, -100);
+                }
+                else {
+                    rocketView.center = CGPointMake(self.view.center.x+50, -100);
+                }
+                
+                fallingVelocity = 0.0211f;
+                fallingVariable = 1;
+                sidewaysAcceleration = 0;
+                fuelAmmount = 5.0f;
+                self.fuelLabel.text = [NSString stringWithFormat:@"%.02f fuel", fuelAmmount * 2.0f];
+                
+                rocketView.image = [UIImage imageNamed:@"Spaceship0"];
+                [rocketView sizeToFit];
+                
+                [UIView animateWithDuration:0.25f animations:^{
+                    platformView.alpha = 1;
+                    self.winLoseLabel.alpha = 1;
+                    self.xAxisLabel.alpha = 1;
+                    self.yAxisLabel.alpha = 1;
+                    self.xLabel.alpha = 1;
+                    self.yLabel.alpha = 1;
+                    self.fuelLabel.alpha = 1;
+                    rocketView.alpha = 1;
+                } completion:^(BOOL finished) {
+                    self.successCounter.text = [NSString stringWithFormat:@"%i", inARow];
+                    self.successCounter.alpha = 0.8f;
+                    self.view.userInteractionEnabled = YES;
+                    updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+                }];
+            }];
+        }];
+
+    }
+    
+}
+- (IBAction)leaderboardAction:(id)sender {
+    if ([GKLocalPlayer localPlayer]) {
+        [self showLeaderboardAndAchievements:YES];
+    }
+    else {
+        self.leaderboardButton.enabled = NO;
+        [self authenticateLocalPlayer: YES];
+    }
+}
+
+-(void)authenticateLocalPlayer: (BOOL)launchLogin{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
+        if (viewController != nil) {
+            if (launchLogin) {
+                [self presentViewController:viewController animated:YES completion:nil];
+            }
+            self.leaderboardButton.enabled = YES;
+        }
+        else{
+            if ([GKLocalPlayer localPlayer].authenticated) {
+                self.leaderboardButton.enabled = YES;
+                [gameDefaults setObject:@"com.linute.rocket.landings" forKey:@"landingLeaderboard"];
+                [gameDefaults setObject:@"com.linute.rocket.failed" forKey:@"failedLeaderboard"];
+                [gameDefaults setObject:@"com.linute.rocket.highscore" forKey:@"highScoreLeaderboard"];
+                [gameDefaults synchronize];
+            }
+            
+            else{
+                self.leaderboardButton.enabled = YES;
+            }
+        }
+    };
+}
+
+-(void)showLeaderboardAndAchievements:(BOOL)shouldShowLeaderboard{
+    GKGameCenterViewController *gcViewController = [[GKGameCenterViewController alloc] init];
+    
+    gcViewController.gameCenterDelegate = self;
+    
+    if (shouldShowLeaderboard) {
+        gcViewController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        gcViewController.leaderboardIdentifier = [gameDefaults objectForKey:@"landingLeaderboard"];
+    }
+    else{
+        gcViewController.viewState = GKGameCenterViewControllerStateAchievements;
+    }
+    
+    [self presentViewController:gcViewController animated:YES completion:nil];
+}
+
+-(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    [gameCenterViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)socialAction:(id)sender {
+    self.socialButton.highlighted = NO;
+    self.socialButton.hidden = YES;
+    self.replayButton.hidden = YES;
+    self.leaderboardButton.hidden = YES;
+    self.shareRocket.hidden = NO;
+    self.shareLinuteLabel.hidden = NO;
+    self.successTitleLabel.text = @"Land that Rocket!";
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, [UIScreen mainScreen].scale);}
+    else{
+        UIGraphicsBeginImageContext(self.view.bounds.size);}
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *data = UIImagePNGRepresentation(image);
+    UIImage *swag = [UIImage imageWithData:data];
+    NSString *texttoshare = @"I'm a bonafide astronaut! @getlinute #SpaceSquad";
+    NSArray *activityItems = @[texttoshare, swag];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypeMail, UIActivityTypeCopyToPasteboard];
+    self.socialButton.hidden = NO;
+    self.replayButton.hidden = NO;
+    self.leaderboardButton.hidden = NO;
+    self.successTitleLabel.text = @"";
+    self.shareRocket.hidden = YES;
+    self.shareLinuteLabel.hidden = YES;
+    [self presentViewController:activityVC animated:TRUE completion:nil];
+}
+- (IBAction)playAction:(id)sender {
+    [UIView animateWithDuration:0.25f animations:^{
+        self.instructionView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5f animations:^{
+            platformView.alpha = 1;
+            self.winLoseLabel.alpha = 1;
+            self.fuelLabel.alpha = 1;
+            self.yAxisLabel.alpha = 1;
+            self.xAxisLabel.alpha = 1;
+            self.xLabel.alpha = 1;
+            self.yLabel.alpha = 1;
+        } completion:^(BOOL finished) {
+            updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+        }];
+    }];
+    
 }
 @end

@@ -127,6 +127,7 @@
                 self.leaderboardButton.enabled = YES;
                 [menuDefaults setObject:@"com.linute.rocket.landings" forKey:@"landingLeaderboard"];
                 [menuDefaults setObject:@"com.linute.rocket.failed" forKey:@"failedLeaderboard"];
+                [menuDefaults setObject:@"com.linute.rocket.highscore" forKey:@"highScoreLeaderboard"];
                 [menuDefaults synchronize];
             }
             

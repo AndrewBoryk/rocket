@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="ADAM.CG PRO.otf">
+            <string>ADAM.CGPRO</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -16,17 +22,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewLaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="BmW-hS-2bM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StarryNight" translatesAutoresizingMaskIntoConstraints="NO" id="Xs9-4R-Chq">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LINUTE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PnO-o5-ZAt">
+                                <rect key="frame" x="248" y="285" width="105" height="31"/>
+                                <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="31"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spaceship4" translatesAutoresizingMaskIntoConstraints="NO" id="Y3L-sh-YKw">
+                                <rect key="frame" x="287" y="210" width="27" height="59"/>
                             </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BmW-hS-2bM" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="HWv-gB-MPN"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="BmW-hS-2bM" secondAttribute="bottom" id="TAJ-Mh-Ose"/>
-                            <constraint firstItem="BmW-hS-2bM" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="oH2-9a-uAM"/>
-                            <constraint firstAttribute="trailing" secondItem="BmW-hS-2bM" secondAttribute="trailing" id="qL7-sE-zcA"/>
+                            <constraint firstItem="PnO-o5-ZAt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0eL-qT-DcO"/>
+                            <constraint firstItem="PnO-o5-ZAt" firstAttribute="top" secondItem="Y3L-sh-YKw" secondAttribute="bottom" constant="16" id="1Y5-3s-kvo"/>
+                            <constraint firstItem="PnO-o5-ZAt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4df-mV-oc8"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Xs9-4R-Chq" secondAttribute="bottom" id="7jg-6L-dVI"/>
+                            <constraint firstAttribute="trailing" secondItem="Xs9-4R-Chq" secondAttribute="trailing" id="FSO-rd-3es"/>
+                            <constraint firstItem="Y3L-sh-YKw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rdh-6W-dPc"/>
+                            <constraint firstItem="Xs9-4R-Chq" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ssm-gT-Zsf"/>
+                            <constraint firstItem="Xs9-4R-Chq" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="t0d-2U-cEB"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,6 +55,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NewLaunchImage" width="213" height="378"/>
+        <image name="Spaceship4" width="27" height="59"/>
+        <image name="StarryNight" width="640" height="1136"/>
     </resources>
 </document>
