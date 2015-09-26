@@ -20,6 +20,7 @@
     BOOL userTouching;
     BOOL gameOver;
     BOOL outOfFuel;
+    BOOL scoreboardShowing;
     float rotation;
     float fallingVelocity;
     float fallingVariable;
@@ -39,6 +40,8 @@
     NSArray *explosionImages;
     UIImageView *explosionView;
     SystemSoundID audioEffect;
+    UIView *pauseView;
+    NSTimer *restartTimer;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *replayButton;

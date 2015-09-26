@@ -20,6 +20,12 @@
     [super viewDidLoad];
     [self prefersStatusBarHidden];
     menuDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [menuDefaults setObject:@"com.linute.rocket.landings" forKey:@"landingLeaderboard"];
+    [menuDefaults setObject:@"com.linute.rocket.failed" forKey:@"failedLeaderboard"];
+    [menuDefaults setObject:@"com.linute.rocket.highscore" forKey:@"highScoreLeaderboard"];
+    [menuDefaults synchronize];
+    
     self.playButton.layer.cornerRadius = 3.0f;
     self.innerEdge.layer.cornerRadius = 3.0f;
     self.outerEdge.layer.cornerRadius = 3.0f;
@@ -45,7 +51,7 @@
     
 //    updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
     
-    [self authenticateLocalPlayer:NO];
+    [self authenticateLocalPlayer];
     // Do any additional setup after loading the view.
 }
 
@@ -99,7 +105,7 @@
     }
     else {
         self.leaderboardButton.enabled = NO;
-        [self authenticateLocalPlayer: YES];
+        [self authenticateLocalPlayer];
     }
 }
 
@@ -111,24 +117,18 @@
     //ACCELERATION
 }
 
--(void)authenticateLocalPlayer: (BOOL)launchLogin{
+-(void)authenticateLocalPlayer {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
         if (viewController != nil) {
-            if (launchLogin) {
-                [self presentViewController:viewController animated:YES completion:nil];
-            }
+            [self presentViewController:viewController animated:YES completion:nil];
             self.leaderboardButton.enabled = YES;
         }
         else{
             if ([GKLocalPlayer localPlayer].authenticated) {
                 gameCenterEnabled = YES;
                 self.leaderboardButton.enabled = YES;
-                [menuDefaults setObject:@"com.linute.rocket.landings" forKey:@"landingLeaderboard"];
-                [menuDefaults setObject:@"com.linute.rocket.failed" forKey:@"failedLeaderboard"];
-                [menuDefaults setObject:@"com.linute.rocket.highscore" forKey:@"highScoreLeaderboard"];
-                [menuDefaults synchronize];
             }
             
             else{

@@ -20,7 +20,7 @@
     [super viewDidLoad];
     [self prefersStatusBarHidden];
     gameDefaults = [NSUserDefaults standardUserDefaults];
-    gameOver = true;
+    gameOver = false;
     userTouching = false;
     self.view.userInteractionEnabled = YES;
     outOfFuel = false;
@@ -97,23 +97,28 @@
     self.bannerAd.rootViewController = self;
     [self.bannerAd loadRequest:[GADRequest request]];
     [self.bannerAd setAlpha:0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appEnteredBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if ([gameDefaults boolForKey:@"scoreboardShown"]) {
-        [UIView animateWithDuration:0.5f animations:^{
-            platformView.alpha = 1;
-            self.winLoseLabel.alpha = 1;
-            self.fuelLabel.alpha = 1;
-            self.yAxisLabel.alpha = 1;
-            self.xAxisLabel.alpha = 1;
-            self.xLabel.alpha = 1;
-            self.yLabel.alpha = 1;
-        } completion:^(BOOL finished) {
-            updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
-        }];
+        if (!gameOver) {
+            [UIView animateWithDuration:0.5f animations:^{
+                platformView.alpha = 1;
+                self.winLoseLabel.alpha = 1;
+                self.fuelLabel.alpha = 1;
+                self.yAxisLabel.alpha = 1;
+                self.xAxisLabel.alpha = 1;
+                self.xLabel.alpha = 1;
+                self.yLabel.alpha = 1;
+            } completion:^(BOOL finished) {
+                updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+            }];
+        }
+        
     }
     else {
         [UIView animateWithDuration:0.5f animations:^{
@@ -133,10 +138,13 @@
     UITouch *touch = [[event allTouches] anyObject];
     touchLocation = [touch locationInView:touch.view];
     userTouching = YES;
-    rocketView.animationImages = openThrusterImages;
-    rocketView.animationDuration = 0.25f;
-    rocketView.animationRepeatCount = 0;
-    [rocketView startAnimating];
+    if (!gameOver) {
+        rocketView.animationImages = openThrusterImages;
+        rocketView.animationDuration = 0.25f;
+        rocketView.animationRepeatCount = 0;
+        [rocketView startAnimating];
+    }
+    
     
 
 }
@@ -155,6 +163,8 @@
 }
 
 -(void)updateRocketPosition {
+    gameOver = false;
+    scoreboardShowing = false;
     CGRect rocketCollision = rocketView.frame;
     rocketCollision.size = CGSizeMake(rocketView.frame.size.width, rocketView.frame.size.height - (rocketView.frame.size.height * 0.22f));
     CGRect platformCollision = platformView.frame;
@@ -503,7 +513,7 @@
                 self.yAxisLabel.text = @"0.00";
                 self.xAxisLabel.text = @"0.00";
                 [self addFail];
-                [NSTimer scheduledTimerWithTimeInterval:0.45f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
+                restartTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
             }
         }
         
@@ -529,8 +539,8 @@
                         [UIView animateWithDuration:0.25f animations:^{
                             rocketView.alpha = 0;
                         } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:0.35f animations:^{
-                                platformOffset = (arc4random() % 150) - 75.0f;
+                            [UIView animateWithDuration:0.5f animations:^{
+                                platformOffset = (arc4random() % 200) - 100.0f;
                                 platformView.center = CGPointMake(self.view.center.x-platformOffset, self.view.frame.size.height - 100);
                             } completion:^(BOOL finished) {
                                 [self finishGame];
@@ -564,7 +574,7 @@
                                 [gameDefaults setBool:true forKey:@"scoreboardShown"];
                                 [gameDefaults synchronize];
                                 [UIView animateWithDuration:0.5f animations:^{
-                                    self.bannerAd.alpha = 1;
+//                                    self.bannerAd.alpha = 1;
                                     self.firstTimeLabel.alpha = 1;
                                     self.replayButton.alpha = 1;
                                     self.successTitleLabel.alpha = 1;
@@ -612,7 +622,7 @@
                 explosionView.animationRepeatCount = 1;
                 [explosionView startAnimating];
                 
-                [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
+                restartTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
             }
         }
         else {
@@ -648,7 +658,7 @@
             explosionView.animationDuration = 0.5f;
             explosionView.animationRepeatCount = 1;
             [explosionView startAnimating];
-            [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
+            restartTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(endingOptions) userInfo:nil repeats:NO];
             
         }
         
@@ -668,11 +678,14 @@
     }
 }
 -(void)showScoreboard {
+    gameOver = true;
+    [offscreenView removeFromSuperview];
     [UIView animateWithDuration:0.5f animations:^{
-        self.bannerAd.alpha = 1;
+//        self.bannerAd.alpha = 1;
     }];
     self.view.userInteractionEnabled = YES;
     [updateRocketTimer invalidate];
+    scoreboardShowing = true;
     [self.replayButton setTitle:@"RELAUNCH" forState:UIControlStateNormal];
     self.replayButton.enabled = YES;
     self.successTitleLabel.text = @"";
@@ -729,6 +742,7 @@
 }
 
 -(void)finishGame {
+    gameOver = true;
     [updateRocketTimer invalidate];
     rotation = 0;
     rocketView.transform = CGAffineTransformMakeRotation(0);
@@ -877,7 +891,7 @@
     }
     else if (totalPlays%10 == 0) {
         [UIView animateWithDuration:0.5f animations:^{
-            self.bannerAd.alpha = 1;
+//            self.bannerAd.alpha = 1;
         }];
     }
     else if (totalPlays%10 >= 4) {
@@ -1132,6 +1146,7 @@
     self.leaderboardButton.hidden = YES;
     self.shareRocket.hidden = NO;
     self.shareLinuteLabel.hidden = NO;
+    self.bannerAd.hidden = YES;
     self.successTitleLabel.text = @"Land that Rocket!";
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
         UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, [UIScreen mainScreen].scale);}
@@ -1152,6 +1167,7 @@
     self.successTitleLabel.text = @"";
     self.shareRocket.hidden = YES;
     self.shareLinuteLabel.hidden = YES;
+    self.bannerAd.hidden = YES;
     [self presentViewController:activityVC animated:TRUE completion:nil];
 }
 - (IBAction)playAction:(id)sender {
@@ -1169,6 +1185,41 @@
         } completion:^(BOOL finished) {
             updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
         }];
+    }];
+    
+}
+
+-(void)appEnteredBackground {
+    [updateRocketTimer invalidate];
+    [restartTimer invalidate];
+    [explosionView removeFromSuperview];
+    if (!scoreboardShowing && pauseView == nil) {
+        pauseView = [[UIView alloc] initWithFrame:self.view.frame];
+        //    pauseView.backgroundColor = [UIColor colorWithRed:52.0f/255.0f green:73.0f/255.0f blue:94.0f/255.0f alpha:0.3f];
+        pauseView.backgroundColor = [UIColor blackColor];
+        pauseView.alpha = 0.6f;
+        UIButton *pauseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        [pauseButton setImage:[UIImage imageNamed:@"PausePlay"] forState:UIControlStateNormal];
+        [pauseButton addTarget:self action:@selector(unpause) forControlEvents:UIControlEventTouchUpInside];
+        pauseButton.center = pauseView.center;
+        [pauseView addSubview:pauseButton];
+        [self.view addSubview:pauseView];
+    }
+    
+}
+
+-(void)unpause {
+    [UIView animateWithDuration:0.5f animations:^{
+        pauseView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [pauseView removeFromSuperview];
+        pauseView = nil;
+        if (gameOver) {
+            [self finishGame];
+        }
+        else {
+            updateRocketTimer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateRocketPosition) userInfo:nil repeats:YES];
+        }
     }];
     
 }
