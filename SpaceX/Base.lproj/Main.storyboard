@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cLJ-06-5cw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cLJ-06-5cw">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -7,6 +7,11 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="ADAM.CG PRO.otf">
+            <string>ADAM.CGPRO</string>
+            <string>ADAM.CGPRO</string>
+            <string>ADAM.CGPRO</string>
+            <string>ADAM.CGPRO</string>
+            <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
             <string>ADAM.CGPRO</string>
@@ -44,12 +49,15 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StarryNight" translatesAutoresizingMaskIntoConstraints="NO" id="W4k-7R-Yxa">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WavesAndClouds" translatesAutoresizingMaskIntoConstraints="NO" id="WW3-aF-5LU">
                                 <rect key="frame" x="-8" y="388" width="616" height="212"/>
+                                <animations/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDh-a5-9Zh">
                                 <rect key="frame" x="292" y="36" width="17" height="46"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="45"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -58,7 +66,19 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Personal Best" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TcN-G0-EmG">
                                 <rect key="frame" x="44" y="86" width="512" height="18"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daR-m7-68o">
+                                <rect key="frame" x="169" y="134" width="263" height="31"/>
+                                <animations/>
+                                <string key="text">Currently Beta
+App Store Version Coming Soon</string>
+                                <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,42 +86,49 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fuel" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D28-OP-3rG">
                                 <rect key="frame" x="553" y="40" width="27" height="17"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3V-3z-Fbb">
                                 <rect key="frame" x="541" y="61" width="28" height="17"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVc-Rc-1Z8">
                                 <rect key="frame" x="573" y="65" width="7" height="13"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SU-s0-fQ9">
                                 <rect key="frame" x="573" y="86" width="7" height="13"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOP-TQ-fUt">
                                 <rect key="frame" x="20" y="40" width="39" height="16"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6z7-fJ-IVj">
                                 <rect key="frame" x="541" y="82" width="28" height="17"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7cJ-KL-hBB">
                                 <rect key="frame" x="4" y="20" width="63" height="44"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="QsY-gO-lEB"/>
                                     <constraint firstAttribute="height" constant="16" id="Z4B-3G-yuv"/>
@@ -118,6 +145,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="You landed the rocket successfully! Now it is time to see how many times you can do that in a row, are you ready?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3Z-RA-fc2">
                                 <rect key="frame" x="28" y="284" width="544" height="33"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -126,6 +154,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.94999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUCCESS!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBa-6H-QZb">
                                 <rect key="frame" x="235" y="92" width="130" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="29"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -134,6 +163,7 @@
                             </label>
                             <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-KA-lPf">
                                 <rect key="frame" x="229" y="499" width="142" height="43"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="31"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="titleShadowOffset" width="1" height="1"/>
@@ -147,6 +177,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaX-It-Voo">
                                 <rect key="frame" x="547" y="36" width="33" height="33"/>
+                                <animations/>
                                 <state key="normal" image="SocialButton"/>
                                 <connections>
                                     <action selector="socialAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zk4-K5-2w3"/>
@@ -154,6 +185,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbE-m5-upe">
                                 <rect key="frame" x="20" y="36" width="33" height="33"/>
+                                <animations/>
                                 <state key="normal" image="LeaderboardButton"/>
                                 <connections>
                                     <action selector="leaderboardAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pv0-QZ-AFD"/>
@@ -161,6 +193,7 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LINUTE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIY-TC-SVb">
                                 <rect key="frame" x="247" y="536" width="106" height="32"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="31"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -169,9 +202,11 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Spaceship4" translatesAutoresizingMaskIntoConstraints="NO" id="zvN-TJ-XQP">
                                 <rect key="frame" x="286" y="461" width="27" height="59"/>
+                                <animations/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hyv-5k-QNw" customClass="GADBannerView">
                                 <rect key="frame" x="0.0" y="550" width="600" height="50"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="b8I-0p-FQ3"/>
                                 </constraints>
@@ -181,6 +216,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Hold finger on screen for thrust" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2U-ac-Szg">
                                         <rect key="frame" x="151" y="209" width="298" height="17"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -189,6 +225,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Slide finger left to tilt left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAv-oF-E7i">
                                         <rect key="frame" x="178" y="242" width="245" height="17"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -197,6 +234,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Slide finger right to tilt right" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b6-Wv-xjs">
                                         <rect key="frame" x="168" y="275" width="265" height="17"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -205,6 +243,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kju-P1-7vQ">
                                         <rect key="frame" x="233" y="316" width="134" height="37"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="25"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="LET'S PLAY!">
@@ -216,6 +255,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <animations/>
                                 <constraints>
                                     <constraint firstItem="aAv-oF-E7i" firstAttribute="centerX" secondItem="Hxv-Db-OK6" secondAttribute="centerX" id="01P-aT-ZVH"/>
                                     <constraint firstItem="s2U-ac-Szg" firstAttribute="centerX" secondItem="Hxv-Db-OK6" secondAttribute="centerX" id="9pw-iM-5Ze"/>
@@ -236,6 +276,7 @@
                                 </variation>
                             </view>
                         </subviews>
+                        <animations/>
                         <constraints>
                             <constraint firstItem="Hxv-Db-OK6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="05D-eS-OHk"/>
                             <constraint firstItem="CrG-KA-lPf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0X0-w1-ZGB"/>
@@ -263,11 +304,13 @@
                             <constraint firstItem="JaX-It-Voo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="IUq-Ws-cSO"/>
                             <constraint firstItem="iOP-TQ-fUt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="KPb-ZY-WPI"/>
                             <constraint firstItem="TcN-G0-EmG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="24" id="L5d-fg-vdA"/>
+                            <constraint firstItem="daR-m7-68o" firstAttribute="top" secondItem="tBa-6H-QZb" secondAttribute="bottom" constant="12" id="LIB-Vk-vvK"/>
                             <constraint firstItem="4SU-s0-fQ9" firstAttribute="top" secondItem="RVc-Rc-1Z8" secondAttribute="bottom" constant="8" id="Lfw-CD-FrP"/>
                             <constraint firstItem="W4k-7R-Yxa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="N0l-m3-G7e"/>
                             <constraint firstItem="oDh-a5-9Zh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NAt-ky-fAf"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="trailing" secondItem="iOP-TQ-fUt" secondAttribute="trailing" constant="8" id="NJg-la-1mb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WW3-aF-5LU" secondAttribute="bottom" id="NML-Of-7we"/>
+                            <constraint firstItem="daR-m7-68o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NQ3-ed-aal"/>
                             <constraint firstItem="TcN-G0-EmG" firstAttribute="leading" secondItem="oDh-a5-9Zh" secondAttribute="trailing" constant="-17" id="OjQ-wQ-JMJ"/>
                             <constraint firstItem="7cJ-KL-hBB" firstAttribute="centerY" secondItem="iOP-TQ-fUt" secondAttribute="centerY" id="OzK-gF-xYD"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Hyv-5k-QNw" secondAttribute="bottom" id="RuW-oP-uoL"/>
@@ -334,6 +377,7 @@
                     </view>
                     <connections>
                         <outlet property="bannerAd" destination="Hyv-5k-QNw" id="AD4-KF-Imu"/>
+                        <outlet property="betaShareLabel" destination="daR-m7-68o" id="lYj-3a-H09"/>
                         <outlet property="firstTimeLabel" destination="J3Z-RA-fc2" id="kqT-mZ-o6J"/>
                         <outlet property="fuelLabel" destination="D28-OP-3rG" id="emJ-Zu-eI4"/>
                         <outlet property="highScoreLabel" destination="TcN-G0-EmG" id="YVg-kN-nu0"/>
@@ -361,6 +405,37 @@
             </objects>
             <point key="canvasLocation" x="212" y="485"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="SEq-EH-8DE">
+            <objects>
+                <viewController id="3nr-9Q-S9L" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="s4b-v5-ncn"/>
+                        <viewControllerLayoutGuide type="bottom" id="hic-yY-uPy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WFl-QZ-EFR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StarryNight" translatesAutoresizingMaskIntoConstraints="NO" id="Ey4-gZ-n7I">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hic-yY-uPy" firstAttribute="top" secondItem="Ey4-gZ-n7I" secondAttribute="bottom" id="F6h-f4-l7V"/>
+                            <constraint firstItem="Ey4-gZ-n7I" firstAttribute="top" secondItem="s4b-v5-ncn" secondAttribute="bottom" constant="-20" id="hNP-63-05N"/>
+                            <constraint firstAttribute="trailing" secondItem="Ey4-gZ-n7I" secondAttribute="trailing" id="t9t-O9-q97"/>
+                            <constraint firstItem="Ey4-gZ-n7I" firstAttribute="leading" secondItem="WFl-QZ-EFR" secondAttribute="leading" id="wSE-6z-aXy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UR5-3t-mfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34" y="1139"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="R6k-Dd-p5I">
             <objects>
@@ -375,9 +450,11 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StarryNight" translatesAutoresizingMaskIntoConstraints="NO" id="ACP-eu-ebM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WavesAndClouds" translatesAutoresizingMaskIntoConstraints="NO" id="WL5-v7-pKh">
                                 <rect key="frame" x="-8" y="388" width="616" height="212"/>
+                                <animations/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="54c-b1-elm">
                                 <rect key="frame" x="250" y="275" width="100" height="50"/>
@@ -387,6 +464,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jjk-64-UM3">
                                                 <rect key="frame" x="3" y="3" width="88" height="38"/>
+                                                <animations/>
                                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="21"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <state key="normal" title="PLAY">
@@ -397,6 +475,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Jjk-64-UM3" secondAttribute="trailing" constant="3" id="CIs-PM-VsF"/>
                                             <constraint firstAttribute="bottom" secondItem="Jjk-64-UM3" secondAttribute="bottom" constant="3" id="HdL-c5-p3x"/>
@@ -405,6 +484,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="AnI-gX-666"/>
                                     <constraint firstAttribute="trailing" secondItem="gGe-as-ePr" secondAttribute="trailing" constant="3" id="NzJ-uV-QX2"/>
@@ -416,6 +496,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVr-MO-hOc">
                                 <rect key="frame" x="227" y="327" width="147" height="38"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Wmm-zX-cAW"/>
                                 </constraints>
@@ -429,6 +510,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <animations/>
                         <constraints>
                             <constraint firstItem="ACP-eu-ebM" firstAttribute="top" secondItem="TwB-yY-VxT" secondAttribute="bottom" constant="-20" id="01t-t0-2tC"/>
                             <constraint firstItem="k6B-nE-ghS" firstAttribute="top" secondItem="WL5-v7-pKh" secondAttribute="bottom" id="3ZD-EA-Ugm"/>
@@ -455,6 +537,95 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSg-DR-ki6" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-625" y="449"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8bZ-6v-2eI">
+            <objects>
+                <viewController id="JSV-6G-mbR" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Pl-yZ-5Yz"/>
+                        <viewControllerLayoutGuide type="bottom" id="7ec-af-94O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="opg-li-qH1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n3G-Mh-Ceg">
+                                <rect key="frame" x="175" y="175" width="250" height="250"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="XSG-2n-GAn"/>
+                                    <constraint firstAttribute="width" constant="250" id="smw-ff-JHi"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afE-7p-ghn">
+                                <rect key="frame" x="225" y="439" width="150" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNLOCK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTM-YL-ubx">
+                                        <rect key="frame" x="44" y="8" width="62" height="15"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 C or $1.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTr-nu-o0d">
+                                        <rect key="frame" x="35" y="26" width="80" height="12"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raU-mm-7Mx">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                        <animations/>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.12941176469999999" green="0.26274509800000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="wTM-YL-ubx" firstAttribute="centerX" secondItem="afE-7p-ghn" secondAttribute="centerX" id="2Zb-Wj-v7r"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZTr-nu-o0d" secondAttribute="bottom" constant="2" id="APz-uc-M6g"/>
+                                    <constraint firstAttribute="width" constant="150" id="Cjb-yz-aHX"/>
+                                    <constraint firstItem="raU-mm-7Mx" firstAttribute="centerX" secondItem="afE-7p-ghn" secondAttribute="centerX" id="WhD-M7-7uD"/>
+                                    <constraint firstItem="wTM-YL-ubx" firstAttribute="top" secondItem="afE-7p-ghn" secondAttribute="top" constant="8" id="XpZ-rl-nlg"/>
+                                    <constraint firstItem="ZTr-nu-o0d" firstAttribute="centerX" secondItem="afE-7p-ghn" secondAttribute="centerX" id="eDk-Zb-kYB"/>
+                                    <constraint firstAttribute="height" constant="40" id="ged-Kc-0VU"/>
+                                    <constraint firstItem="raU-mm-7Mx" firstAttribute="width" secondItem="afE-7p-ghn" secondAttribute="width" id="iSd-h2-Alk"/>
+                                    <constraint firstItem="raU-mm-7Mx" firstAttribute="height" secondItem="afE-7p-ghn" secondAttribute="height" id="jVU-QO-3Ec"/>
+                                    <constraint firstItem="raU-mm-7Mx" firstAttribute="centerY" secondItem="afE-7p-ghn" secondAttribute="centerY" id="ofA-Qk-229"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePo-9w-xLt">
+                                <rect key="frame" x="267" y="94" width="66" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlocked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6OX-BR-eYE">
+                                <rect key="frame" x="268" y="123" width="65" height="12"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <constraints>
+                            <constraint firstItem="afE-7p-ghn" firstAttribute="top" secondItem="n3G-Mh-Ceg" secondAttribute="bottom" constant="14" id="Jf4-WT-sw5"/>
+                            <constraint firstItem="ePo-9w-xLt" firstAttribute="centerX" secondItem="opg-li-qH1" secondAttribute="centerX" id="K9o-7Q-YPw"/>
+                            <constraint firstItem="afE-7p-ghn" firstAttribute="centerX" secondItem="opg-li-qH1" secondAttribute="centerX" id="OUi-oe-Sa8"/>
+                            <constraint firstItem="n3G-Mh-Ceg" firstAttribute="centerY" secondItem="opg-li-qH1" secondAttribute="centerY" id="RVD-oS-WTD"/>
+                            <constraint firstItem="n3G-Mh-Ceg" firstAttribute="top" secondItem="ePo-9w-xLt" secondAttribute="bottom" constant="60" id="ULq-82-uiO"/>
+                            <constraint firstItem="6OX-BR-eYE" firstAttribute="top" secondItem="ePo-9w-xLt" secondAttribute="bottom" constant="8" id="eMh-yX-bnZ"/>
+                            <constraint firstItem="6OX-BR-eYE" firstAttribute="centerX" secondItem="opg-li-qH1" secondAttribute="centerX" id="hmb-fA-s2b"/>
+                            <constraint firstItem="n3G-Mh-Ceg" firstAttribute="centerX" secondItem="opg-li-qH1" secondAttribute="centerX" id="o6v-NS-hFJ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uIm-6g-Y4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="714" y="1131"/>
         </scene>
     </scenes>
     <resources>

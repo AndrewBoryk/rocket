@@ -43,7 +43,7 @@
     self.successCounter.alpha = 0;
     self.xLabel.alpha = 0;
     self.yLabel.alpha = 0;
-    
+    self.betaShareLabel.hidden = YES;
     
     self.socialOffset.constant = -75;
     self.leaderboardOffset.constant = -75;
@@ -160,6 +160,26 @@
     userTouching = NO;
     [rocketView stopAnimating];
     rocketView.image = [UIImage imageNamed:@"Spaceship0"];
+    NSLog(@"Touches %@", [event allTouches]);
+    if ([[event allTouches] count]) {
+        NSArray *objects = [[event allTouches] allObjects];
+        for (int i = 0; i<objects.count; i++) {
+            UITouch *touch = objects[i];
+            if (touch.phase == UITouchPhaseStationary) {
+                touchLocation = [touch locationInView:touch.view];
+                userTouching = YES;
+                if (!gameOver) {
+                    rocketView.animationImages = openThrusterImages;
+                    rocketView.animationDuration = 0.25f;
+                    rocketView.animationRepeatCount = 0;
+                    [rocketView startAnimating];
+                    break;
+                }
+            }
+            
+        }
+        
+    }
 }
 
 -(void)updateRocketPosition {
@@ -305,25 +325,25 @@
                             rotation = rotation + comparisonFloat;
                         }
                         else if (rotation >= 25 && rotation < 90) {
-                            rotation = rotation + comparisonFloat*1.11f;
+                            rotation = rotation + comparisonFloat;
                         }
                         else if (rotation >= 90 && rotation < 135) {
-                            rotation = rotation + comparisonFloat*1.25f;
+                            rotation = rotation + comparisonFloat*1.11f;
                         }
                         else if (rotation >= 135 && rotation < 180) {
-                            rotation = rotation + comparisonFloat*1.11f;
+                            rotation = rotation + comparisonFloat*1.18f;
                         }
                         else if (rotation >= 180 && rotation < 225) {
                             rotation = rotation + comparisonFloat;
                         }
                         else if (rotation >= 225 && rotation < 270) {
-                            rotation = rotation + comparisonFloat/1.11f;
+                            rotation = rotation + comparisonFloat/2.0f;
                         }
                         else if (rotation >= 270 && rotation < 335) {
-                            rotation = rotation + comparisonFloat/1.25f;
+                            rotation = rotation + comparisonFloat/1.95f;
                         }
                         else if (rotation >= 335 && rotation < 360) {
-                            rotation = rotation + comparisonFloat/1.11f;
+                            rotation = rotation + comparisonFloat/1.75f;
                         }
                         
                         
@@ -379,26 +399,26 @@
 //                        
 //                        rotation = rotation - (rotateValue);
                         
-                        if (rotation >= 0 && rotation < 45) {
-                            rotation = rotation - comparisonFloat/1.11f;
+                        if (rotation >= 0 && rotation < 25) {
+                            rotation = rotation - comparisonFloat/1.75f;
                         }
-                        else if (rotation >= 45 && rotation < 90) {
-                            rotation = rotation - comparisonFloat/1.25f;
+                        else if (rotation >= 25 && rotation < 90) {
+                            rotation = rotation - comparisonFloat/1.95f;
                         }
                         else if (rotation >= 90 && rotation < 135) {
-                            rotation = rotation - comparisonFloat/1.11f;
+                            rotation = rotation - comparisonFloat/2.0f;
                         }
                         else if (rotation >= 135 && rotation < 180) {
                             rotation = rotation - comparisonFloat;
                         }
                         else if (rotation >= 180 && rotation < 225) {
-                            rotation = rotation - comparisonFloat*1.11f;
+                            rotation = rotation - comparisonFloat*1.18f;
                         }
                         else if (rotation >= 225 && rotation < 270) {
-                            rotation = rotation - comparisonFloat*1.25f;
+                            rotation = rotation - comparisonFloat*1.11f;
                         }
                         else if (rotation >= 270 && rotation < 315) {
-                            rotation = rotation - comparisonFloat*1.11f;
+                            rotation = rotation - comparisonFloat;
                         }
                         else if (rotation >= 315 && rotation < 360) {
                             rotation = rotation - comparisonFloat;
@@ -450,7 +470,7 @@
                 }
                 else if (rotation > 0 && rotation < 180){
                     float comparisonFloat = (rotation - 180.0f)/180.0f;
-                    if (rotation > 0 && rotation < 45) {
+                    if (rotation > 0 && rotation < 10) {
                         
                     }
                     else {
@@ -462,7 +482,7 @@
                 }
                 else if (rotation < 360 && rotation > 180) {
                     float comparisonFloat = (180.0f - (rotation - 180.0f))/180.0f;
-                    if (rotation > 315 && rotation < 360) {
+                    if (rotation > 350 && rotation < 360) {
                         
                     }
                     else {
@@ -520,10 +540,10 @@
     } else {
         totalPlays++;
         if (rocketCollision.origin.x + rocketCollision.size.width*0.24 >= platformCollision.origin.x && rocketCollision.origin.x+rocketCollision.size.width*0.66 <= platformCollision.origin.x + platformCollision.size.width && rocketCollision.origin.y < platformCollision.origin.y+1) {
-            if ((rotation < 10 || rotation > 350) && fallingVariable <= 40) {
+            if ((rotation < 7.5f || rotation > 352.5f) && fallingVariable <= 24.5f && (sidewaysAcceleration < 0.5f && sidewaysAcceleration > -0.5f)) {
                 //            NSLog(@"Win");
-                NSLog(@"Win velocity: %f", fallingVariable);
-                NSLog(@"Win rotation: %f", rotation);
+//                NSLog(@"Win velocity: %f", fallingVariable);
+//                NSLog(@"Win rotation: %f", rotation);
                 totalWins++;
                 self.yAxisLabel.text = @"0.00";
                 self.xAxisLabel.text = @"0.00";
@@ -574,7 +594,7 @@
                                 [gameDefaults setBool:true forKey:@"scoreboardShown"];
                                 [gameDefaults synchronize];
                                 [UIView animateWithDuration:0.5f animations:^{
-//                                    self.bannerAd.alpha = 1;
+                                    self.bannerAd.alpha = 1;
                                     self.firstTimeLabel.alpha = 1;
                                     self.replayButton.alpha = 1;
                                     self.successTitleLabel.alpha = 1;
@@ -590,8 +610,8 @@
             }
             else {
                 [updateRocketTimer invalidate];
-                NSLog(@"Lose velocity: %f", fallingVariable);
-                NSLog(@"Lose rotation: %f", rotation);
+//                NSLog(@"Lose velocity: %f", fallingVariable);
+//                NSLog(@"Lose rotation: %f", rotation);
                 self.yAxisLabel.text = @"0.00";
                 self.xAxisLabel.text = @"0.00";
                 [self addFail];
@@ -627,8 +647,8 @@
         }
         else {
             [updateRocketTimer invalidate];
-            NSLog(@"Lose Range velocity: %f", fallingVariable);
-            NSLog(@"Lose Range rotation: %f", rotation);
+//            NSLog(@"Lose Range velocity: %f", fallingVariable);
+//            NSLog(@"Lose Range rotation: %f", rotation);
             //            NSLog(@"Lose");
             self.yAxisLabel.text = @"0.00";
             self.xAxisLabel.text = @"0.00";
@@ -681,7 +701,7 @@
     gameOver = true;
     [offscreenView removeFromSuperview];
     [UIView animateWithDuration:0.5f animations:^{
-//        self.bannerAd.alpha = 1;
+        self.bannerAd.alpha = 1;
     }];
     self.view.userInteractionEnabled = YES;
     [updateRocketTimer invalidate];
@@ -753,7 +773,8 @@
         rocketView.center = CGPointMake(self.view.center.x+50, -100);
     }
     
-    
+    touchLocation = CGPointZero;
+    userTouching = NO;
     rocketView.alpha = 0;
     fallingVelocity = 0.0211f;
     fallingVariable = 1;
@@ -793,11 +814,11 @@
         
     }
     else if (fmodf(rotation, 360) < 270 && fmodf(rotation, 360) > 180) {
-        if (sidewaysAcceleration > -1.5f) {
+        if (sidewaysAcceleration > -2.45f) {
             sidewaysAcceleration -= (0.2f * ((180.0f - (fmodf(fmodf(rotation, 360), 180))) / 180.0f));
         }
         else {
-            sidewaysAcceleration = -1.5f;
+            sidewaysAcceleration = -2.45f;
         }
         
     }
@@ -818,46 +839,46 @@
     
     if (userTouching && fuelAmmount > 0) {
         if (fmodf(rotation, 360) == 0) {
-            if (fallingVariable > 5) {
-                fallingVariable-= 1.31f;
+            if (fallingVariable > 10) {
+                fallingVariable-= 0.6125f;
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
-                fallingVariable = 4;
+                fallingVariable = 10;
                 fallingVelocity = fallingVariable*0.0211;
             }
             
         }
         else if (fmodf(rotation, 360) < 90 && fmodf(rotation, 360) > 0) {
-            if (fallingVariable > 5) {
-                fallingVariable += -1.31*(fmodf(rotation, 360) / 90.0f);
+            if (fallingVariable > 10) {
+                fallingVariable += -0.6125f*((90.0f - fmodf(rotation, 360)) / 90.0f);
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
-                fallingVariable = 5;
+                fallingVariable = 10;
                 fallingVelocity = fallingVariable*0.0211;
             }
             
         }
         else if (fmodf(rotation, 360) < 180 && fmodf(rotation, 360) > 90) {
-            fallingVariable += ((fmodf(rotation, 360) - 90.0f) / 90.0f);
+            fallingVariable += 2.45f*((fmodf(rotation, 360) - 90.0f) / 90.0f);
             fallingVelocity = fallingVariable*0.0211;
         }
         else if (fmodf(rotation, 360) == 180) {
-            fallingVariable++;
+            fallingVariable+=2.45f;
             fallingVelocity = fallingVariable*0.0211;
         }
         else if (fmodf(rotation, 360) > 180 && fmodf(rotation, 360) < 270) {
-            fallingVariable += ((fmodf(rotation, 360) - 180.0f) / 90.0f);
+            fallingVariable += 2.45f*((fmodf(rotation, 360) - 180.0f) / 90.0f);
             fallingVelocity = fallingVariable*0.0211;
         }
         else if (fmodf(rotation, 360) > 270 && fmodf(rotation, 360) < 360) {
-            if (fallingVariable > 5.0f) {
-                fallingVariable += -1.31*((fmodf(rotation, 360) - 270.0f) / 90.0f);
+            if (fallingVariable > 10.0f) {
+                fallingVariable += -0.6125f*((fmodf(rotation, 360) - 270.0f) / 90.0f);
                 fallingVelocity = fallingVariable*0.0211;
             }
             else {
-                fallingVariable = 5;
+                fallingVariable = 10;
                 fallingVelocity = fallingVariable*0.0211;
             }
             
@@ -891,7 +912,7 @@
     }
     else if (totalPlays%10 == 0) {
         [UIView animateWithDuration:0.5f animations:^{
-//            self.bannerAd.alpha = 1;
+            self.bannerAd.alpha = 1;
         }];
     }
     else if (totalPlays%10 >= 4) {
@@ -1147,6 +1168,7 @@
     self.shareRocket.hidden = NO;
     self.shareLinuteLabel.hidden = NO;
     self.bannerAd.hidden = YES;
+    self.betaShareLabel.hidden = YES;
     self.successTitleLabel.text = @"Land that Rocket!";
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
         UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, [UIScreen mainScreen].scale);}
@@ -1167,7 +1189,8 @@
     self.successTitleLabel.text = @"";
     self.shareRocket.hidden = YES;
     self.shareLinuteLabel.hidden = YES;
-    self.bannerAd.hidden = YES;
+    self.bannerAd.hidden = NO;
+    self.betaShareLabel.hidden = YES;
     [self presentViewController:activityVC animated:TRUE completion:nil];
 }
 - (IBAction)playAction:(id)sender {

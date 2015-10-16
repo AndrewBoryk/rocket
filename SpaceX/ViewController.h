@@ -74,6 +74,7 @@
 - (IBAction)playAction:(id)sender;
 
 @property (weak, nonatomic) IBOutlet GADBannerView *bannerAd;
+@property (weak, nonatomic) IBOutlet UILabel *betaShareLabel;
 
 @end
 

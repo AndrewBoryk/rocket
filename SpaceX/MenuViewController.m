@@ -21,6 +21,10 @@
     [self prefersStatusBarHidden];
     menuDefaults = [NSUserDefaults standardUserDefaults];
     
+//    [menuDefaults setObject:[NSNumber numberWithInt:29854] forKey:@"failedLandingScore"];
+//    [menuDefaults setObject:[NSNumber numberWithInt:326] forKey:@"safeLandingScore"];
+//    [menuDefaults setObject:[NSNumber numberWithInt:10] forKey:@"HighScore"];
+    
     [menuDefaults setObject:@"com.linute.rocket.landings" forKey:@"landingLeaderboard"];
     [menuDefaults setObject:@"com.linute.rocket.failed" forKey:@"failedLeaderboard"];
     [menuDefaults setObject:@"com.linute.rocket.highscore" forKey:@"highScoreLeaderboard"];

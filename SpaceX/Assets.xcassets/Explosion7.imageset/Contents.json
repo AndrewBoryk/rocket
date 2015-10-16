@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "filename" : "Explosion7.png",
+      "filename" : "Explosion6.png",
       "scale" : "1x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "Explosion7@2x.png",
+      "filename" : "Explosion6@2x.png",
       "scale" : "2x"
     },
     {
