@@ -143,7 +143,7 @@ App Store Version Coming Soon</string>
                                     <action selector="scoreSwitchAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VJj-Ux-rpZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="You landed the rocket successfully! Now it is time to see how many times you can do that in a row, are you ready?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3Z-RA-fc2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="You landed the rocket successfully! Now it is time to see how many times you can do that in a row, are you ready?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3Z-RA-fc2">
                                 <rect key="frame" x="28" y="284" width="544" height="33"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="ADAM.CGPRO" family="ADAM.CG PRO" pointSize="16"/>

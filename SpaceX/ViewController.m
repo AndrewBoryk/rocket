@@ -325,7 +325,7 @@
                             rotation = rotation + comparisonFloat;
                         }
                         else if (rotation >= 25 && rotation < 90) {
-                            rotation = rotation + comparisonFloat;
+                            rotation = rotation + comparisonFloat*1.06f;
                         }
                         else if (rotation >= 90 && rotation < 135) {
                             rotation = rotation + comparisonFloat*1.11f;
@@ -337,13 +337,13 @@
                             rotation = rotation + comparisonFloat;
                         }
                         else if (rotation >= 225 && rotation < 270) {
-                            rotation = rotation + comparisonFloat/2.0f;
+                            rotation = rotation + comparisonFloat/1.18f;
                         }
                         else if (rotation >= 270 && rotation < 335) {
-                            rotation = rotation + comparisonFloat/1.95f;
+                            rotation = rotation + comparisonFloat/1.12f;
                         }
                         else if (rotation >= 335 && rotation < 360) {
-                            rotation = rotation + comparisonFloat/1.75f;
+                            rotation = rotation + comparisonFloat/1.06f;
                         }
                         
                         
@@ -400,13 +400,13 @@
 //                        rotation = rotation - (rotateValue);
                         
                         if (rotation >= 0 && rotation < 25) {
-                            rotation = rotation - comparisonFloat/1.75f;
+                            rotation = rotation - comparisonFloat/1.06f;
                         }
                         else if (rotation >= 25 && rotation < 90) {
-                            rotation = rotation - comparisonFloat/1.95f;
+                            rotation = rotation - comparisonFloat/1.12f;
                         }
                         else if (rotation >= 90 && rotation < 135) {
-                            rotation = rotation - comparisonFloat/2.0f;
+                            rotation = rotation - comparisonFloat/1.18f;
                         }
                         else if (rotation >= 135 && rotation < 180) {
                             rotation = rotation - comparisonFloat;
@@ -415,10 +415,10 @@
                             rotation = rotation - comparisonFloat*1.18f;
                         }
                         else if (rotation >= 225 && rotation < 270) {
-                            rotation = rotation - comparisonFloat*1.11f;
+                            rotation = rotation - comparisonFloat*1.12f;
                         }
                         else if (rotation >= 270 && rotation < 315) {
-                            rotation = rotation - comparisonFloat;
+                            rotation = rotation - comparisonFloat*1.06f;
                         }
                         else if (rotation >= 315 && rotation < 360) {
                             rotation = rotation - comparisonFloat;
@@ -470,7 +470,7 @@
                 }
                 else if (rotation > 0 && rotation < 180){
                     float comparisonFloat = (rotation - 180.0f)/180.0f;
-                    if (rotation > 0 && rotation < 10) {
+                    if (rotation > 0 && rotation < 45) {
                         
                     }
                     else {
@@ -482,7 +482,7 @@
                 }
                 else if (rotation < 360 && rotation > 180) {
                     float comparisonFloat = (180.0f - (rotation - 180.0f))/180.0f;
-                    if (rotation > 350 && rotation < 360) {
+                    if (rotation > 315 && rotation < 360) {
                         
                     }
                     else {
